@@ -1,5 +1,7 @@
 #!/bin/bash
 
+cd "$( cd -P "$( dirname "${BASH_SOURCE[0]}" )" && pwd )" || exit 10
+
 OVERLAYS=/boot/overlays
 [ -d /boot/firmware/overlays ] && OVERLAYS=/boot/firmware/overlays
 
@@ -122,17 +124,17 @@ grep -q "^snd-soc-ac108$" /etc/modules || \
 grep -q "^snd-soc-wm8960$" /etc/modules || \
   echo "snd-soc-wm8960" >> /etc/modules  
 
-#set dtoverlays
-CONFIG=/boot/config.txt
-[ -f /boot/firmware/usercfg.txt ] && CONFIG=/boot/firmware/usercfg.txt
+# #set dtoverlays
+# CONFIG=/boot/config.txt
+# [ -f /boot/firmware/usercfg.txt ] && CONFIG=/boot/firmware/usercfg.txt
 
-sed -i -e 's:#dtparam=i2c_arm=on:dtparam=i2c_arm=on:g'  $CONFIG || true
-grep -q "^dtoverlay=i2s-mmap$" $CONFIG || \
-  echo "dtoverlay=i2s-mmap" >> $CONFIG
+# sed -i -e 's:#dtparam=i2c_arm=on:dtparam=i2c_arm=on:g'  $CONFIG || true
+# grep -q "^dtoverlay=i2s-mmap$" $CONFIG || \
+#   echo "dtoverlay=i2s-mmap" >> $CONFIG
 
 
-grep -q "^dtparam=i2s=on$" $CONFIG || \
-  echo "dtparam=i2s=on" >> $CONFIG
+# grep -q "^dtparam=i2s=on$" $CONFIG || \
+#   echo "dtparam=i2s=on" >> $CONFIG
 
 #install config files
 mkdir /etc/voicecard || true
